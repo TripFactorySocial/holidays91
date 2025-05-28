@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Holidays91 - Modern Flight Search</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/index.css" />
+  </head>
+  <body>
+    <div class="hero-section">
+      <div class="background-image"></div>
+
+      <!-- Header -->
+      <header>
+        <a href="#" class="logo">
+          <img
+            src="https://holidays91.com/wp-content/uploads/2024/08/Holidays91-3.png"
+            alt="Holidays91 Logo"
+            width="150"
+          />
+        </a>
+        <div class="auth-buttons">
+          <a href="#" class="auth-button support">24/7 Support</a>
+          <a href="#" class="auth-button signup">Login/ Sign Up</a>
+        </div>
+      </header>
+
+      <!-- Search Widget -->
+      <div class="search-container">
+        <div class="search-widget">
+          <div class="search-tabs">
+            <div class="tab active" data-tab="one-way">
+              <i class="fas fa-plane"></i> One-way
+            </div>
+            <div class="tab" data-tab="round-trip">
+              <i class="fas fa-exchange-alt"></i> Round-trip
+            </div>
+          </div>
+
+          <!-- One-way search content -->
+          <div class="search-content active" id="one-way">
+            <div class="search-row">
+              <div class="search-field">
+                <label for="from-airport-1">From</label>
+                <input
+                  type="text"
+                  id="from-airport-1"
+                  class="search-input"
+                  placeholder="City or Airport"
+                />
+              </div>
+
+              <div class="search-field" style="position: relative">
+                <button class="swap-btn">
+                  <i class="fas fa-exchange-alt"></i>
+                </button>
+                <label for="to-airport-1">To</label>
+                <input
+                  type="text"
+                  id="to-airport-1"
+                  class="search-input"
+                  placeholder="City or Airport"
+                />
+              </div>
+
+              <div class="search-field">
+                <label for="departure-date-1">Departure</label>
+                <input
+                  type="text"
+                  id="departure-date-1"
+                  class="search-input date-picker"
+                  placeholder="Select Date"
+                />
+              </div>
+
+              <div class="search-field">
+                <label for="return-date-1">Return</label>
+                <input
+                  type="text"
+                  id="return-date-1"
+                  class="search-input date-picker return-clickable"
+                  placeholder="Select Date"
+                  style="background-color: #f5f5f5; cursor: pointer"
+                  readonly
+                />
+              </div>
+
+              <div class="search-field dropdown">
+                <label for="passengers-1">Passengers & Class</label>
+                <input
+                  type="text"
+                  id="passengers-1"
+                  class="search-input"
+                  placeholder="1 Adult, Economy"
+                  readonly
+                />
+
+                <div class="dropdown-content">
+                  <div class="passenger-type">
+                    <span>Adults (12+ years)</span>
+                    <div class="passenger-counter">
+                      <div class="counter-btn decrease">-</div>
+                      <div class="counter-value">1</div>
+                      <div class="counter-btn increase">+</div>
+                    </div>
+                  </div>
+
+                  <div class="passenger-type">
+                    <span>Children (2-11 years)</span>
+                    <div class="passenger-counter">
+                      <div class="counter-btn decrease">-</div>
+                      <div class="counter-value">0</div>
+                      <div class="counter-btn increase">+</div>
+                    </div>
+                  </div>
+
+                  <div class="passenger-type">
+                    <span>Infants (0-23 months)</span>
+                    <div class="passenger-counter">
+                      <div class="counter-btn decrease">-</div>
+                      <div class="counter-value">0</div>
+                      <div class="counter-btn increase">+</div>
+                    </div>
+                  </div>
+
+                  <div class="cabin-class">
+                    <label>Cabin Class</label>
+                    <div class="radio-group">
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-1"
+                          value="economy"
+                          checked
+                        />
+                        <span>Economy</span>
+                      </label>
+
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-1"
+                          value="premium"
+                        />
+                        <span>Premium</span>
+                      </label>
+
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-1"
+                          value="business"
+                        />
+                        <span>Business</span>
+                      </label>
+
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-1"
+                          value="first"
+                        />
+                        <span>First</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button id="search-btn" class="search-button">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+
+            <div class="special-offers-container">
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="student-1"
+                  name="offer-1"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="student-1" class="offer-label">
+                  <div class="offer-title">Student</div>
+                  <div class="offer-subtitle">Extra discounts/baggage</div>
+                </label>
+              </div>
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="senior-1"
+                  name="offer-1"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="senior-1" class="offer-label">
+                  <div class="offer-title">Senior Citizen</div>
+                  <div class="offer-subtitle">Up to ₹ 600 off</div>
+                </label>
+              </div>
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="armed-1"
+                  name="offer-1"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="armed-1" class="offer-label">
+                  <div class="offer-title">Armed Forces</div>
+                  <div class="offer-subtitle">Up to ₹ 600 off</div>
+                </label>
+              </div>
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="doctor-1"
+                  name="offer-1"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="doctor-1" class="offer-label">
+                  <div class="offer-title">Doctor and Nurses</div>
+                  <div class="offer-subtitle">Up to ₹ 600 off</div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Round-trip search content -->
+          <div class="search-content" id="round-trip">
+            <div class="search-row">
+              <div class="search-field">
+                <label for="from-airport-2">From</label>
+                <input
+                  type="text"
+                  id="from-airport-2"
+                  class="search-input"
+                  placeholder="City or Airport"
+                />
+              </div>
+
+              <div class="search-field" style="position: relative">
+                <button class="swap-btn">
+                  <i class="fas fa-exchange-alt"></i>
+                </button>
+                <label for="to-airport-2">To</label>
+                <input
+                  type="text"
+                  id="to-airport-2"
+                  class="search-input"
+                  placeholder="City or Airport"
+                />
+              </div>
+
+              <div class="search-field">
+                <label for="departure-date-2">Departure</label>
+                <input
+                  type="text"
+                  id="departure-date-2"
+                  class="search-input date-picker"
+                  placeholder="Select Date"
+                />
+              </div>
+
+              <div class="search-field">
+                <label for="return-date-2">Return</label>
+                <input
+                  type="text"
+                  id="return-date-2"
+                  class="search-input date-picker"
+                  placeholder="Select Date"
+                />
+              </div>
+
+              <div class="search-field dropdown">
+                <label for="passengers-2">Passengers & Class</label>
+                <input
+                  type="text"
+                  id="passengers-2"
+                  class="search-input"
+                  placeholder="1 Adult, Economy"
+                  readonly
+                />
+
+                <div class="dropdown-content">
+                  <div class="passenger-type">
+                    <span>Adults (12+ years)</span>
+                    <div class="passenger-counter">
+                      <div class="counter-btn decrease">-</div>
+                      <div class="counter-value">1</div>
+                      <div class="counter-btn increase">+</div>
+                    </div>
+                  </div>
+
+                  <div class="passenger-type">
+                    <span>Children (2-11 years)</span>
+                    <div class="passenger-counter">
+                      <div class="counter-btn decrease">-</div>
+                      <div class="counter-value">0</div>
+                      <div class="counter-btn increase">+</div>
+                    </div>
+                  </div>
+
+                  <div class="passenger-type">
+                    <span>Infants (0-23 months)</span>
+                    <div class="passenger-counter">
+                      <div class="counter-btn decrease">-</div>
+                      <div class="counter-value">0</div>
+                      <div class="counter-btn increase">+</div>
+                    </div>
+                  </div>
+
+                  <div class="cabin-class">
+                    <label>Cabin Class</label>
+                    <div class="radio-group">
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-2"
+                          value="economy"
+                          checked
+                        />
+                        <span>Economy</span>
+                      </label>
+
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-2"
+                          value="premium"
+                        />
+                        <span>Premium</span>
+                      </label>
+
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-2"
+                          value="business"
+                        />
+                        <span>Business</span>
+                      </label>
+
+                      <label class="radio-option">
+                        <input
+                          type="radio"
+                          name="cabin-class-2"
+                          value="first"
+                        />
+                        <span>First</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="special-offers-container">
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="student-2"
+                  name="offer-2"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="student-2" class="offer-label">
+                  <div class="offer-title">Student</div>
+                  <div class="offer-subtitle">Extra discounts/baggage</div>
+                </label>
+              </div>
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="senior-2"
+                  name="offer-2"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="senior-2" class="offer-label">
+                  <div class="offer-title">Senior Citizen</div>
+                  <div class="offer-subtitle">Up to ₹ 600 off</div>
+                </label>
+              </div>
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="armed-2"
+                  name="offer-2"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="armed-2" class="offer-label">
+                  <div class="offer-title">Armed Forces</div>
+                  <div class="offer-subtitle">Up to ₹ 600 off</div>
+                </label>
+              </div>
+              <div class="offer-option">
+                <input
+                  type="radio"
+                  id="doctor-2"
+                  name="offer-2"
+                  class="offer-radio"
+                  hidden
+                />
+                <label for="doctor-2" class="offer-label">
+                  <div class="offer-title">Doctor and Nurses</div>
+                  <div class="offer-subtitle">Up to ₹ 600 off</div>
+                </label>
+              </div>
+            </div>
+
+            <!-- <button class="search-button">
+              <i class="fas fa-search"></i> Search Flights
+            </button> -->
+            <a
+              href="/pages/results/results.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="search-button"
+            >
+              <i class="fas fa-search"></i> Search Flights
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+      <i class="fas fa-headset"></i>
+    </div>
+
+    <!-- OFFERS -->
+    <!-- Offers Section -->
+    <section class="offers-section">
+      <div class="offers-container">
+        <h2 class="offers-heading">Offers For You</h2>
+
+        <div class="offers-carousel-container">
+          <button
+            class="offers-nav offers-nav-prev"
+            aria-label="Previous offers"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <div class="offers-carousel-wrapper">
+            <div class="offers-carousel">
+              <div class="offer-card air-india">
+                <div class="offer-header">
+                  <img
+                    src="/api/placeholder/60/30"
+                    alt="Air India"
+                    class="airline-logo"
+                  />
+                  <span class="offer-badge">SALE</span>
+                </div>
+                <div class="offer-content">
+                  <h3>Domestic Fares starting at ₹1,999</h3>
+                  <p>International Fares starting at ₹11,999</p>
+                  <div class="offer-validity">Valid till 24th May</div>
+                </div>
+                <div class="offer-visual">
+                  <i class="fas fa-plane offer-icon"></i>
+                </div>
+              </div>
+
+              <div class="offer-card indigo">
+                <div class="offer-header">
+                  <img
+                    src="/api/placeholder/60/30"
+                    alt="IndiGo"
+                    class="airline-logo"
+                  />
+                  <span class="offer-badge flash">FLASH SALE</span>
+                </div>
+                <div class="offer-content">
+                  <h3>Fares starting from ₹1,375</h3>
+                  <div class="offer-validity">Valid till 25th May</div>
+                </div>
+                <div class="offer-visual">
+                  <i class="fas fa-bolt offer-icon"></i>
+                </div>
+              </div>
+
+              <div class="offer-card hdfc">
+                <div class="offer-header">
+                  <img
+                    src="/api/placeholder/60/30"
+                    alt="HDFC Bank"
+                    class="bank-logo"
+                  />
+                </div>
+                <div class="offer-content">
+                  <h3>Get up to ₹2,000 Off</h3>
+                  <p>on Domestic Flights with HDFC Bank Cards EMI</p>
+                </div>
+                <div class="offer-visual">
+                  <i class="fas fa-credit-card offer-icon"></i>
+                </div>
+              </div>
+
+              <div class="offer-card kotak">
+                <div class="offer-header">
+                  <img
+                    src="/api/placeholder/60/30"
+                    alt="Kotak"
+                    class="bank-logo"
+                  />
+                </div>
+                <div class="offer-content">
+                  <h3>Flat 12% Off</h3>
+                  <p>on Domestic Flights with Kotak Retail Credit Card</p>
+                  <div class="offer-feature">+ Interest Free EMI</div>
+                </div>
+                <div class="offer-visual">
+                  <i class="fas fa-percentage offer-icon"></i>
+                </div>
+              </div>
+
+              <div class="offer-card special">
+                <div class="offer-header"></div>
+                <div class="offer-content">
+                  <h3>Flight and Hotel bookings suspended</h3>
+                  <p>for Turkey, Azerbaijan, and China</p>
+                  <button class="know-more-btn">Know More</button>
+                </div>
+              </div>
+
+              <div class="offer-card vistara">
+                <div class="offer-header">
+                  <img
+                    src="/api/placeholder/60/30"
+                    alt="Vistara"
+                    class="airline-logo"
+                  />
+                  <span class="offer-badge">LIMITED TIME</span>
+                </div>
+                <div class="offer-content">
+                  <h3>Premium Economy Special</h3>
+                  <p>Upgrade to Premium Economy at ₹4,999</p>
+                  <div class="offer-validity">Valid till 30th May</div>
+                </div>
+                <div class="offer-visual">
+                  <i class="fas fa-star offer-icon"></i>
+                </div>
+              </div>
+
+              <div class="offer-card axis">
+                <div class="offer-header">
+                  <img
+                    src="/api/placeholder/60/30"
+                    alt="Axis Bank"
+                    class="bank-logo"
+                  />
+                </div>
+                <div class="offer-content">
+                  <h3>5X Rewards on International Flights</h3>
+                  <p>Plus get 10% instant discount</p>
+                  <div class="offer-feature">Max discount ₹5,000</div>
+                </div>
+                <div class="offer-visual">
+                  <i class="fas fa-gift offer-icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="offers-nav offers-nav-next" aria-label="Next offers">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Carousel indicators -->
+        <div class="offers-indicators">
+          <span class="indicator active" data-slide="0"></span>
+          <span class="indicator" data-slide="1"></span>
+          <span class="indicator" data-slide="2"></span>
+        </div>
+      </div>
+    </section>
+
+    <!--  -->
+    <section class="why-book-section">
+      <h1 class="section-title">Why Book with Us?</h1>
+
+      <div class="features-grid">
+        <!-- Easy Booking -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img
+              src="/public/easy-booking.png"
+              alt="easy booking"
+              height="48"
+            />
+          </div>
+          <h3 class="feature-title">Easy Booking</h3>
+          <p class="feature-description">
+            Book your flights quickly with our smooth, user-friendly platform.
+          </p>
+        </div>
+
+        <!-- Lowest Price -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img
+              src="/public/lowest-price.png"
+              alt="easy booking"
+              height="48"
+            />
+          </div>
+          <h3 class="feature-title">Lowest Price</h3>
+          <p class="feature-description">
+            Enjoy unbeatable prices on flights, hotels, and travel packages.
+          </p>
+        </div>
+
+        <!-- Instant Refund -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img
+              src="/public/instant-refund.png"
+              alt="easy booking"
+              height="48"
+            />
+          </div>
+          <h3 class="feature-title">Instant Refund</h3>
+          <p class="feature-description">
+            Plans changed? Get fast and hassle-free refunds.
+          </p>
+        </div>
+
+        <!-- 24/7 Support -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img src="/public/support.png" alt="easy booking" height="48" />
+          </div>
+          <h3 class="feature-title">24/7 Support</h3>
+          <p class="feature-description">
+            We're always here to help—anytime, anywhere.
+          </p>
+        </div>
+
+        <!-- Exciting Deals -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <img
+              src="/public/exciting-deals.png"
+              alt="easy booking"
+              height="48"
+            />
+          </div>
+          <h3 class="feature-title">Exciting Deals</h3>
+          <p class="feature-description">
+            Save big with limited-time offers on flights, stays, and holidays.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Sections -->
+    <section class="content-sections">
+      <div class="content-section">
+        <h2>About Holidays91</h2>
+        <p>
+          Welcome to Holidays91 – your trusted travel companion for finding the
+          best flight deals, every time you fly. Whether you're jetting off for
+          a business trip, planning a romantic getaway, or heading on a family
+          vacation, Holidays91 makes it simple and affordable.<br />
+          Our intuitive booking platform is designed to give you a smooth and
+          hassle-free experience, from searching and comparing to booking and
+          boarding. With access to thousands of domestic and international
+          routes, we connect you to top airlines and exclusive fares you won't
+          find elsewhere.<br />
+          No hidden charges, no confusing steps – just clear, competitive
+          pricing and round-the-clock customer support.<br />
+          We believe travel should be easy, transparent, and enjoyable – and
+          that's exactly what we deliver.
+        </p>
+      </div>
+
+      <div class="content-section">
+        <h2>Flight Booking with Holidays91</h2>
+        <p>
+          Holidays91 has quickly emerged as one of the top choices for online
+          flight booking across India. Every day, thousands of travellers trust
+          Holidays91 to find and book the cheapest airline tickets with ease.<br />
+          What makes Holidays91 stand out is not just the unbeatable flight
+          deals and exclusive offers, but also the hassle-free booking process
+          that makes travel planning truly effortless.<br />
+          Whether you're flying for work or leisure, Holidays91 offers a smooth,
+          secure, and user-friendly experience from start to finish.<br />
+          Planning a trip soon? Give Holidays91 a try and enjoy the difference.
+          From real-time fare comparisons and easy payment options to instant
+          booking confirmations and fast refunds – everything is designed to
+          keep you stress-free and moving forward. Your perfect flight is just a
+          few clicks away with Holidays91.
+        </p>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+      <div class="newsletter-container">
+        <div class="newsletter-text">
+          Subscribe to our newsletter. Get the latest trends deals!
+        </div>
+        <form class="newsletter-form">
+          <input
+            type="email"
+            class="newsletter-input"
+            placeholder="Email Id"
+            required
+          />
+          <button type="submit" class="newsletter-button">SUBSCRIBE</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- Company Column -->
+        <div class="footer-column">
+          <h3>COMPANY</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">GST Details</a></li>
+            <li><a href="#">Career</a></li>
+          </ul>
+          <div class="iata-member">
+            <span class="iata-text">Members of</span>
+            <!-- <div class="iata-logo"> -->
+            <img src="/public/iata-white.png" alt="AITA" height="48" />
+            <!-- </div> -->
+          </div>
+        </div>
+
+        <!-- Our Service Column -->
+        <div class="footer-column">
+          <h3>OUR SERVICE</h3>
+          <ul>
+            <li><a href="#">Domestic Air Ticket</a></li>
+            <li><a href="#">Series Fare</a></li>
+            <li><a href="#">Group Fare</a></li>
+            <li><a href="#">Charter Flight</a></li>
+          </ul>
+        </div>
+
+        <!-- Policies & Terms Column -->
+        <div class="footer-column">
+          <h3>POLICIES & TERMS</h3>
+          <ul>
+            <li><a href="#">CRS Policy</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Payment Security</a></li>
+          </ul>
+        </div>
+
+        <!-- Airlines We Deal Column -->
+        <div class="footer-column">
+          <h3>AIRLINES WE DEAL</h3>
+          <ul>
+            <li><a href="#">Indigo</a></li>
+            <li><a href="#">Spicejet</a></li>
+            <li><a href="#">AirAsia</a></li>
+            <li><a href="#">Vistara</a></li>
+            <li><a href="#">AirIndia</a></li>
+            <li><a href="#">Akasa</a></li>
+          </ul>
+        </div>
+
+        <!-- Follow Us Column -->
+        <div class="footer-column">
+          <h3>FOLLOW US</h3>
+          <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright">
+        <p>Copyright © 2025 Holidays91.com Pvt. Ltd.</p>
+      </div>
+    </footer>
+  </body>
+</html>
