@@ -186,6 +186,7 @@ header {
 .tab.active {
   transform: scale(1.05);
   background-color: #e6f3ff;
+  color: var(--primary-color);
 }
 
 .search-content {
