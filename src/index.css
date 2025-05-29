@@ -42,6 +42,12 @@ body {
   height: 401px;
 }
 
+.offers-section,
+.why-book-section,
+.content-section {
+  height: 401px;
+}
+
 /* ===== HERO SECTION ===== */
 .hero-section {
   position: relative;
@@ -955,10 +961,6 @@ header {
   height: 80%;
   width: 2px;
   background-color: #9fe2ff;
-}
-
-.feature-card:last-child::before {
-  height: 0;
 }
 
 .feature-card:hover {
