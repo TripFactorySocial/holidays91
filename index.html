@@ -14,9 +14,17 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./src/index.css" />
+    <link rel="stylesheet" href="/src/index.css" />
   </head>
   <body>
+    <!-- SECTION HERO -->
+    <!--
+ ██   ███████████████  ██████
+ ██   ████     ██   ████    ██
+ ████████████  ██████ ██    ██
+ ██   ████     ██   ████    ██
+ ██   ███████████   ██ ██████
+-->
     <div class="hero-section">
       <div class="background-image"></div>
 
@@ -35,7 +43,14 @@
         </div>
       </header>
 
-      <!-- Search Widget -->
+      <!-- ANCHOR Search Widget -->
+      <!--
+ ██████████████ █████ ██████  ████████   ██
+ ██     ██     ██   ████   ████     ██   ██
+ ████████████  █████████████ ██     ███████
+      ████     ██   ████   ████     ██   ██
+ ████████████████   ████   ██ ████████   ██
+-->
       <div class="search-container">
         <div class="search-widget">
           <div class="search-tabs">
@@ -61,7 +76,7 @@
               </div>
 
               <div class="search-field" style="position: relative">
-                <button class="swap-btn">
+                <button class="swap-btn" data-tab="one-way">
                   <i class="fas fa-exchange-alt"></i>
                 </button>
                 <label for="to-airport-1">To</label>
@@ -80,6 +95,7 @@
                   id="departure-date-1"
                   class="search-input date-picker"
                   placeholder="Select Date"
+                  readonly
                 />
               </div>
 
@@ -106,30 +122,30 @@
                 />
 
                 <div class="dropdown-content">
-                  <div class="passenger-type">
+                  <div class="passenger-type" data-type="adults">
                     <span>Adults (12+ years)</span>
                     <div class="passenger-counter">
-                      <div class="counter-btn decrease">-</div>
+                      <button class="counter-btn decrease">-</button>
                       <div class="counter-value">1</div>
-                      <div class="counter-btn increase">+</div>
+                      <button class="counter-btn increase">+</button>
                     </div>
                   </div>
 
-                  <div class="passenger-type">
+                  <div class="passenger-type" data-type="children">
                     <span>Children (2-11 years)</span>
                     <div class="passenger-counter">
-                      <div class="counter-btn decrease">-</div>
+                      <button class="counter-btn decrease">-</button>
                       <div class="counter-value">0</div>
-                      <div class="counter-btn increase">+</div>
+                      <button class="counter-btn increase">+</button>
                     </div>
                   </div>
 
-                  <div class="passenger-type">
+                  <div class="passenger-type" data-type="infants">
                     <span>Infants (0-23 months)</span>
                     <div class="passenger-counter">
-                      <div class="counter-btn decrease">-</div>
+                      <button class="counter-btn decrease">-</button>
                       <div class="counter-value">0</div>
-                      <div class="counter-btn increase">+</div>
+                      <button class="counter-btn increase">+</button>
                     </div>
                   </div>
 
@@ -251,7 +267,7 @@
               </div>
 
               <div class="search-field" style="position: relative">
-                <button class="swap-btn">
+                <button class="swap-btn" data-tab="round-trip">
                   <i class="fas fa-exchange-alt"></i>
                 </button>
                 <label for="to-airport-2">To</label>
@@ -270,6 +286,7 @@
                   id="departure-date-2"
                   class="search-input date-picker"
                   placeholder="Select Date"
+                  readonly
                 />
               </div>
 
@@ -280,6 +297,7 @@
                   id="return-date-2"
                   class="search-input date-picker"
                   placeholder="Select Date"
+                  readonly
                 />
               </div>
 
@@ -294,30 +312,30 @@
                 />
 
                 <div class="dropdown-content">
-                  <div class="passenger-type">
+                  <div class="passenger-type" data-type="adults">
                     <span>Adults (12+ years)</span>
                     <div class="passenger-counter">
-                      <div class="counter-btn decrease">-</div>
+                      <button class="counter-btn decrease">-</button>
                       <div class="counter-value">1</div>
-                      <div class="counter-btn increase">+</div>
+                      <button class="counter-btn increase">+</button>
                     </div>
                   </div>
 
-                  <div class="passenger-type">
+                  <div class="passenger-type" data-type="children">
                     <span>Children (2-11 years)</span>
                     <div class="passenger-counter">
-                      <div class="counter-btn decrease">-</div>
+                      <button class="counter-btn decrease">-</button>
                       <div class="counter-value">0</div>
-                      <div class="counter-btn increase">+</div>
+                      <button class="counter-btn increase">+</button>
                     </div>
                   </div>
 
-                  <div class="passenger-type">
+                  <div class="passenger-type" data-type="infants">
                     <span>Infants (0-23 months)</span>
                     <div class="passenger-counter">
-                      <div class="counter-btn decrease">-</div>
+                      <button class="counter-btn decrease">-</button>
                       <div class="counter-value">0</div>
-                      <div class="counter-btn increase">+</div>
+                      <button class="counter-btn increase">+</button>
                     </div>
                   </div>
 
@@ -364,6 +382,9 @@
                   </div>
                 </div>
               </div>
+              <button class="search-button">
+                <i class="fas fa-search"></i> Search
+              </button>
             </div>
 
             <div class="special-offers-container">
@@ -420,30 +441,31 @@
                 </label>
               </div>
             </div>
-
-            <!-- <button class="search-button">
-              <i class="fas fa-search"></i> Search Flights
-            </button> -->
-            <!-- <a
-              href="/pages/results/results.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="search-button"
-            >
-              <i class="fas fa-search"></i> Search Flights
-            </a> -->
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Chatbot -->
+    <!-- ANCHOR Chatbot -->
+    <!--
+  ████████   ██ ███████████████████  ██████████████
+ ██     ██   ████   ██  ██   ██   ████    ██  ██
+ ██     ██████████████  ██   ██████ ██    ██  ██
+ ██     ██   ████   ██  ██   ██   ████    ██  ██
+  ████████   ████   ██  ██   ██████  ██████   ██
+-->
     <div class="chatbot">
       <i class="fas fa-headset"></i>
     </div>
 
-    <!-- OFFERS -->
-    <!-- Offers Section -->
+    <!-- SECTION Offers -->
+    <!--
+  ██████ ███████████████████████████ ███████
+ ██    ████     ██     ██     ██   ████
+ ██    ███████  █████  █████  ██████ ███████
+ ██    ████     ██     ██     ██   ██     ██
+  ██████ ██     ██     █████████   █████████
+-->
     <section class="offers-section">
       <div class="offers-container">
         <h2 class="offers-heading">Offers For You</h2>
@@ -592,7 +614,14 @@
       </div>
     </section>
 
-    <!--  -->
+    <!--SECTION Why Book WITH US -->
+    <!--
+ ██████████████ ███████████████    ████████ ██████████████
+ ██     ██     ██   ██  ██   ██    ████   ████     ██
+ █████  █████  ███████  ██   ██    ████████ █████  ███████
+ ██     ██     ██   ██  ██   ██    ████   ████          ██
+ ██     █████████   ██  ██    ██████ ██   ████████████████
+-->
     <section class="why-book-section">
       <h1 class="section-title">Why Book with Us?</h1>
 
@@ -670,7 +699,14 @@
       </div>
     </section>
 
-    <!-- Content Sections -->
+    <!-- SECTION Content -->
+    <!--
+  ████████████ ███    ████████████████████    ██████████
+ ██    ██    ██████   ██   ██   ██     ████   ██   ██
+ ██    ██    ████ ██  ██   ██   █████  ██ ██  ██   ██
+ ██    ██    ████  ██ ██   ██   ██     ██  ██ ██   ██
+  ████████████ ██   ████   ██   █████████   ████   ██
+-->
     <section class="content-sections">
       <div class="content-section main-content-section">
         <h2>About Holidays91</h2>
@@ -711,47 +747,102 @@
       </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
-      <div class="newsletter-container">
-        <!-- <div class="newsletter-text">
-          Subscribe to our newsletter. Get the latest trends deals!
+    <!-- SECTION Popular Routes -->
+    <!--
+ ██████  ██████ ██    ████████████████████████
+ ██   ████    ████    ██   ██   ██     ██
+ ██████ ██    ████    ██   ██   █████  ███████
+ ██   ████    ████    ██   ██   ██          ██
+ ██   ██ ██████  ██████    ██   ██████████████
+-->
+    <section class="popular-routes-section">
+      <div class="routes-container">
+        <div class="route-category">
+          <h3>Popular Domestic Flight Routes</h3>
+          <div class="routes-grid">
+            <a href="#" class="route-link">Kolkata to New Delhi</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Kolkata to Mumbai</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Kolkata to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+          </div>
         </div>
-        <form class="newsletter-form">
-          <input
-            type="email"
-            class="newsletter-input"
-            placeholder="Email Id"
-            required
-          />
-          <button type="submit" class="newsletter-button">SUBSCRIBE</button>
-        </form> -->
+
+        <div class="route-category">
+          <h3>Popular International Flight Routes</h3>
+          <div class="routes-grid">
+            <a href="#" class="route-link">Kolkata to New Delhi</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Guwahati to Chennai</a>
+            <a href="#" class="route-link">Kolkata to Mumbai</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Guwahati to Ahmedabad</a>
+            <a href="#" class="route-link">Kolkata to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+            <a href="#" class="route-link">Guwahati to Bangalore</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Footer Section -->
+    <!-- SECTION Newsletter -->
+    <!--
+ ███    ███████████     ███████████     ████████████████████████████████████
+ ████   ████     ██     ████     ██     ██        ██      ██   ██     ██   ██
+ ██ ██  ███████  ██  █  ███████████     █████     ██      ██   █████  ██████
+ ██  ██ ████     ██ ███ ██     ████     ██        ██      ██   ██     ██   ██
+ ██   ███████████ ███ ███ █████████████████████   ██      ██   █████████   ██
+-->
+    <section class="newsletter-section">
+      <div class="newsletter-container">
+        <!-- Newsletter content if needed -->
+      </div>
+    </section>
+
+    <!-- SECTION Footer -->
+    <!--
+ █████████████  ███████████████████████████
+ ██    ██    ████    ██  ██   ██     ██   ██
+ █████ ██    ████    ██  ██   █████  ██████
+ ██    ██    ████    ██  ██   ██     ██   ██
+ ██     ██████  ██████   ██   █████████   ██
+-->
     <footer class="footer">
       <div class="footer-container">
         <!-- Company Column -->
         <div class="footer-column">
           <h3>COMPANY</h3>
-          <ul>
+          <ul class="foo-collapse">
             <li><a href="#">About Us</a></li>
             <li><a href="#">GST Details</a></li>
             <li><a href="#">Career</a></li>
           </ul>
           <div class="iata-member">
             <span class="iata-text">Members of</span>
-            <!-- <div class="iata-logo"> -->
-            <img src="./public/iata-white.png" alt="AITA" height="48" />
-            <!-- </div> -->
+            <img src="./public/iata-white.png" alt="IATA" height="48" />
           </div>
         </div>
 
         <!-- Our Service Column -->
         <div class="footer-column">
           <h3>OUR SERVICE</h3>
-          <ul>
+          <ul class="foo-collapse">
             <li><a href="#">Domestic Air Ticket</a></li>
             <li><a href="#">Series Fare</a></li>
             <li><a href="#">Group Fare</a></li>
@@ -762,7 +853,7 @@
         <!-- Policies & Terms Column -->
         <div class="footer-column">
           <h3>POLICIES & TERMS</h3>
-          <ul>
+          <ul class="foo-collapse">
             <li><a href="#">CRS Policy</a></li>
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Terms of Use</a></li>
@@ -773,11 +864,9 @@
         <!-- Airlines We Deal Column -->
         <div class="footer-column">
           <h3>AIRLINES WE DEAL</h3>
-          <ul>
+          <ul class="foo-collapse">
             <li><a href="#">Indigo</a></li>
             <li><a href="#">Spicejet</a></li>
-            <!-- <li><a href="#">AirAsia</a></li> -->
-            <!-- <li><a href="#">Vistara</a></li> -->
             <li><a href="#">AirIndia</a></li>
             <li><a href="#">Akasa</a></li>
           </ul>
@@ -786,7 +875,7 @@
         <!-- Follow Us Column -->
         <div class="footer-column">
           <h3>FOLLOW US</h3>
-          <ul>
+          <ul class="foo-collapse">
             <li><a href="#">Facebook</a></li>
             <li><a href="#">Instagram</a></li>
             <li><a href="#">Twitter</a></li>
@@ -795,10 +884,67 @@
         </div>
       </div>
 
-      <!-- Copyright -->
+      <!-- Footer Collapsable -->
+      <button class="footer-collapsable-btn">
+        <img
+          src="https://img.icons8.com/?size=100&id=26141&format=png&color=ffffff"
+          alt="Footer Collapse Button"
+          srcset=""
+          height="24"
+          width="24"
+        />
+      </button>
+
+      <!-- SECTION Copyright -->
+      <!--
+  ████████████ ████████    ████████ ██ ██████ ██   ██████████
+ ██    ██    ████   ████  ██ ██   ██████      ██   ██   ██
+ ██    ██    ████████  ████  ██████ ████   ██████████   ██
+ ██    ██    ████       ██   ██   ██████    ████   ██   ██
+  ████████████ ██       ██   ██   ████ ██████ ██   ██   ██
+-->
       <div class="copyright">
         <p>Copyright © 2025 Holidays91</p>
       </div>
     </footer>
+
+    <!-- Calendar Widget -->
+    <!--
+  ██████ █████ ██     ██████████    ████████  █████ ██████
+ ██     ██   ████     ██     ████   ████   ████   ████   ██
+ ██     █████████     █████  ██ ██  ████   ███████████████
+ ██     ██   ████     ██     ██  ██ ████   ████   ████   ██
+  ████████   ██████████████████   ██████████ ██   ████   ██
+-->
+    <div class="calendar-widget" id="calendar-widget">
+      <div class="calendar-header">
+        <button class="calendar-nav prev-month">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <h3 class="calendar-title"></h3>
+        <button class="calendar-nav next-month">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="calendar-body">
+        <div class="calendar-weekdays">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+        <div class="calendar-dates"></div>
+      </div>
+      <!-- Add this inside the calendar-widget div, after calendar-body -->
+      <div class="calendar-actions">
+        <button class="calendar-cancel">Cancel</button>
+        <button class="calendar-done">Done</button>
+      </div>
+    </div>
+
+    <script src="src/index.js"></script>
   </body>
 </html>

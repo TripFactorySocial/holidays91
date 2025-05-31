@@ -38,8 +38,9 @@ body {
 
 .offers-section,
 .why-book-section,
-.content-section {
-  height: 401px;
+.content-section,
+.popular-routes-section {
+  height: 400px;
 }
 
 .offers-section,
@@ -127,22 +128,25 @@ header {
   -webkit-backdrop-filter: blur(10px);
 }
 
-.support {
+.support,
+.signup {
   color: var(--light-text);
   background-color: var(--background-color);
 }
 
-.support:hover {
+.support:hover,
+.signup:hover {
   color: var(--text-color--1);
   background-color: var(--border-color);
   transform: translateY(-3px);
 }
 
-.support:active {
+.support:active,
+.signup:active {
   transform: translateY(-1px);
 }
 
-.signup {
+/* .signup {
   color: var(--text-color--1);
   background-color: var(--border-color);
 }
@@ -153,7 +157,7 @@ header {
 
 .signup:active {
   transform: translateY(-1px);
-}
+} */
 
 /* ===== SEARCH CONTAINER ===== */
 .search-container {
@@ -290,9 +294,11 @@ header {
   transform: rotate(180deg);
 }
 
+/* FIXME */
 .swap-btn.swap-active {
   animation: rotateFull 0.5s ease;
   background-color: var(--secondary-color);
+  background-color: #ffc107;
 }
 
 @keyframes rotateFull {
@@ -1018,12 +1024,14 @@ header {
   background-color: #fffefe;
 }
 
+/* ===== CONTENT SECTION H2 ANIMATION ===== */
 .content-section h2 {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
-  /* color: #1a1a1a; */
   position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .content-section h2::before {
@@ -1032,9 +1040,19 @@ header {
   bottom: -0.4rem;
   left: 0;
   height: 4px;
-  width: 8rem;
+  width: 0;
   background-color: orange;
   margin-top: 4px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-section h2:hover {
+  color: var(--primary-color);
+}
+
+.content-section h2:hover::before,
+.content-section h2.animate::before {
+  width: 8rem;
 }
 
 .content-section p {
@@ -1155,12 +1173,36 @@ header {
   gap: 40px;
 }
 
+/* Footer column h3 hover animation */
 .footer-column h3 {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.footer-column h3::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #ffc107;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-column h3:hover {
+  color: #ffc107;
+}
+
+.footer-column h3:hover::after {
+  width: 100%;
 }
 
 .footer-column ul {
@@ -1217,9 +1259,411 @@ header {
   text-align: center;
   padding: 15px 0;
   margin-top: 30px;
+
+  position: relative;
 }
 
 .copyright p {
   color: white;
   font-size: 14px;
+}
+
+/* ===== CALENDAR WIDGET ===== */
+.calendar-widget {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+  z-index: 100;
+  min-width: 320px;
+  margin-top: 0.5rem;
+}
+
+.calendar-widget.active {
+  display: block;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-nav {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.calendar-nav:hover {
+  background-color: var(--primary-light);
+}
+
+.calendar-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.calendar-weekdays div {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-light);
+  padding: 0.5rem;
+}
+
+.calendar-dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calendar-date {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.calendar-date:hover:not(.disabled) {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+}
+
+.calendar-date.selected {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.calendar-date.today {
+  border-color: var(--primary-color);
+  font-weight: 600;
+}
+
+.calendar-date.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendar-date.other-month {
+  color: #ddd;
+}
+
+/* ===== POPULAR ROUTES SECTION ===== */
+.popular-routes-section {
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+}
+
+.routes-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  /* padding: 0 20px; */
+}
+
+.route-category {
+  margin-bottom: 2rem;
+}
+
+.route-category:last-child {
+  margin-bottom: 0;
+}
+
+.route-category h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.4rem;
+}
+
+.route-link {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  display: inline-block;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.route-link:hover {
+  color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+/* .route-link::before {
+  content: "✈";
+  margin-right: 0.5rem;
+  opacity: 0.5;
+} */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .calendar-widget {
+    min-width: 280px;
+  }
+
+  .routes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+/* ===== SWAP ANIMATION ===== */
+.search-field.swap-animation {
+  position: relative;
+}
+
+.search-field.swap-animation .search-input {
+  animation: swapFade 0.5s ease;
+}
+
+@keyframes swapFade {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  25% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  50% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== CONTENT SECTION H2 ANIMATION ===== */
+.content-section h2::before {
+  content: "";
+  position: absolute;
+  bottom: -0.4rem;
+  left: 0;
+  height: 4px;
+  width: 0;
+  background-color: orange;
+  margin-top: 4px;
+  transition: width 0.6s ease;
+}
+
+.content-section h2.animate::before {
+  width: 8rem;
+}
+
+/* ===== RETURN DATE DISABLED STATE ===== */
+.search-input.disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.search-input.disabled::placeholder {
+  color: #bbb;
+}
+
+/*  */
+.footer-collapsable-btn {
+  position: absolute;
+  /* top: 0; */
+  left: 50%;
+  transform: translateY(55%);
+  z-index: 100;
+
+  border: none;
+  background-color: transparent;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 26px;
+  height: 26px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-collapsable-btn:hover {
+  /*  */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  /* transform: translateY(52%); */
+}
+
+.footer-collapsable-btn:active {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* transform: translateY(54%); */
+}
+
+.footer-toggle {
+  display: none;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-text {
+  position: absolute;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  font-size: 16px;
+}
+
+.swap-up {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.swap-down {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Input wrapper for swap animation */
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.input-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: white;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.swap-up {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.swap-down {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Update swap button animation */
+.swap-btn.swap-active {
+  animation: rotateFull 0.5s ease;
+  background-color: #ffc107;
+}
+
+/* Calendar Action Buttons */
+.calendar-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.calendar-actions button {
+  flex: 1;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.calendar-cancel {
+  background-color: #f5f5f5;
+  color: var(--text-color);
+}
+
+.calendar-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+.calendar-done {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.calendar-done:hover {
+  background-color: #2c6ae6;
+  transform: translateY(-1px);
+}
+
+/* Footer collapse animation */
+.foo-collapse {
+  transition: all 0.3s ease;
+  opacity: 1;
+  max-height: 500px;
+}
+
+.foo-collapse.footer-toggle {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.iata-member {
+  transition: all 0.3s ease;
+}
+
+.iata-member.footer-toggle {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Rotate collapse button icon */
+.footer-collapsable-btn {
+  transition: transform 0.3s ease;
+}
+
+.footer-collapsable-btn.rotated {
+  transform: translateY(55%) rotate(180deg);
 }
