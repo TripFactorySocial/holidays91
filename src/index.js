@@ -311,7 +311,6 @@ function wrapInput(input) {
   wrapper.appendChild(input);
 }
 
-// Passenger counter functionality
 /*
  ██████  █████ ████████████████████████    ██ ██████ █████████████      ████████████ ██    █████    ███████████████████████
  ██   ████   ████     ██     ██     ████   ████      ██     ██   ██    ██    ██    ████    ██████   ██   ██   ██     ██   ██
@@ -368,6 +367,15 @@ function setupPassengerCounters() {
         updatePassengerText(dropdown);
       });
     });
+
+    // Setup Done button
+    const doneBtn = dropdown.querySelector(".done-btn");
+    if (doneBtn) {
+      doneBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown.classList.remove("active");
+      });
+    }
   });
 
   // Close dropdowns when clicking outside

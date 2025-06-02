@@ -90,25 +90,31 @@
 
               <div class="search-field">
                 <label for="departure-date-1">Departure</label>
-                <input
-                  type="text"
-                  id="departure-date-1"
-                  class="search-input date-picker"
-                  placeholder="Select Date"
-                  readonly
-                />
+                <div class="date-input-wrapper">
+                  <input
+                    type="text"
+                    id="departure-date-1"
+                    class="search-input date-picker"
+                    placeholder="Select Date"
+                    readonly
+                  />
+                  <i class="fas fa-calendar-alt date-icon"></i>
+                </div>
               </div>
 
               <div class="search-field">
                 <label for="return-date-1">Return</label>
-                <input
-                  type="text"
-                  id="return-date-1"
-                  class="search-input date-picker return-clickable"
-                  placeholder="Select Date"
-                  style="background-color: #f5f5f5; cursor: pointer"
-                  readonly
-                />
+                <div class="date-input-wrapper">
+                  <input
+                    type="text"
+                    id="return-date-1"
+                    class="search-input date-picker return-clickable disabled"
+                    placeholder="Select Date"
+                    readonly
+                    disabled
+                  />
+                  <i class="fas fa-calendar-alt date-icon"></i>
+                </div>
               </div>
 
               <div class="search-field dropdown">
@@ -122,73 +128,91 @@
                 />
 
                 <div class="dropdown-content">
-                  <div class="passenger-type" data-type="adults">
-                    <span>Adults (12+ years)</span>
-                    <div class="passenger-counter">
-                      <button class="counter-btn decrease">-</button>
-                      <div class="counter-value">1</div>
-                      <button class="counter-btn increase">+</button>
+                  <div class="passenger-class-container">
+                    <div class="passenger-section">
+                      <div class="passenger-type" data-type="adults">
+                        <div class="passenger-info">
+                          <span class="passenger-title">Adults</span>
+                          <span class="passenger-subtitle">(12+ Years)</span>
+                        </div>
+                        <div class="passenger-counter">
+                          <button class="counter-btn decrease">-</button>
+                          <div class="counter-value">1</div>
+                          <button class="counter-btn increase">+</button>
+                        </div>
+                      </div>
+
+                      <div class="passenger-type" data-type="children">
+                        <div class="passenger-info">
+                          <span class="passenger-title">Children</span>
+                          <span class="passenger-subtitle">(2-12 Years)</span>
+                        </div>
+                        <div class="passenger-counter">
+                          <button class="counter-btn decrease">-</button>
+                          <div class="counter-value">0</div>
+                          <button class="counter-btn increase">+</button>
+                        </div>
+                      </div>
+
+                      <div class="passenger-type" data-type="infants">
+                        <div class="passenger-info">
+                          <span class="passenger-title">Infants</span>
+                          <span class="passenger-subtitle"
+                            >(Below 2 Years)</span
+                          >
+                        </div>
+                        <div class="passenger-counter">
+                          <button class="counter-btn decrease">-</button>
+                          <div class="counter-value">0</div>
+                          <button class="counter-btn increase">+</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cabin-section">
+                      <div class="cabin-options">
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="economy"
+                            checked
+                          />
+                          <span class="cabin-button">Economy</span>
+                        </label>
+
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="premium"
+                          />
+                          <span class="cabin-button">Premium Economy</span>
+                        </label>
+
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="first"
+                          />
+                          <span class="cabin-button">First Class</span>
+                        </label>
+
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="business"
+                          />
+                          <span class="cabin-button">Business</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="passenger-type" data-type="children">
-                    <span>Children (2-11 years)</span>
-                    <div class="passenger-counter">
-                      <button class="counter-btn decrease">-</button>
-                      <div class="counter-value">0</div>
-                      <button class="counter-btn increase">+</button>
-                    </div>
-                  </div>
-
-                  <div class="passenger-type" data-type="infants">
-                    <span>Infants (0-23 months)</span>
-                    <div class="passenger-counter">
-                      <button class="counter-btn decrease">-</button>
-                      <div class="counter-value">0</div>
-                      <button class="counter-btn increase">+</button>
-                    </div>
-                  </div>
-
-                  <div class="cabin-class">
-                    <label>Cabin Class</label>
-                    <div class="radio-group">
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-1"
-                          value="economy"
-                          checked
-                        />
-                        <span>Economy</span>
-                      </label>
-
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-1"
-                          value="premium"
-                        />
-                        <span>Premium</span>
-                      </label>
-
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-1"
-                          value="business"
-                        />
-                        <span>Business</span>
-                      </label>
-
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-1"
-                          value="first"
-                        />
-                        <span>First</span>
-                      </label>
-                    </div>
+                  <div class="dropdown-footer">
+                    <button class="done-btn">Done</button>
                   </div>
                 </div>
               </div>
@@ -312,73 +336,91 @@
                 />
 
                 <div class="dropdown-content">
-                  <div class="passenger-type" data-type="adults">
-                    <span>Adults (12+ years)</span>
-                    <div class="passenger-counter">
-                      <button class="counter-btn decrease">-</button>
-                      <div class="counter-value">1</div>
-                      <button class="counter-btn increase">+</button>
+                  <div class="passenger-class-container">
+                    <div class="passenger-section">
+                      <div class="passenger-type" data-type="adults">
+                        <div class="passenger-info">
+                          <span class="passenger-title">Adults</span>
+                          <span class="passenger-subtitle">(12+ Years)</span>
+                        </div>
+                        <div class="passenger-counter">
+                          <button class="counter-btn decrease">-</button>
+                          <div class="counter-value">1</div>
+                          <button class="counter-btn increase">+</button>
+                        </div>
+                      </div>
+
+                      <div class="passenger-type" data-type="children">
+                        <div class="passenger-info">
+                          <span class="passenger-title">Children</span>
+                          <span class="passenger-subtitle">(2-12 Years)</span>
+                        </div>
+                        <div class="passenger-counter">
+                          <button class="counter-btn decrease">-</button>
+                          <div class="counter-value">0</div>
+                          <button class="counter-btn increase">+</button>
+                        </div>
+                      </div>
+
+                      <div class="passenger-type" data-type="infants">
+                        <div class="passenger-info">
+                          <span class="passenger-title">Infants</span>
+                          <span class="passenger-subtitle"
+                            >(Below 2 Years)</span
+                          >
+                        </div>
+                        <div class="passenger-counter">
+                          <button class="counter-btn decrease">-</button>
+                          <div class="counter-value">0</div>
+                          <button class="counter-btn increase">+</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cabin-section">
+                      <div class="cabin-options">
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="economy"
+                            checked
+                          />
+                          <span class="cabin-button">Economy</span>
+                        </label>
+
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="premium"
+                          />
+                          <span class="cabin-button">Premium Economy</span>
+                        </label>
+
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="first"
+                          />
+                          <span class="cabin-button">First Class</span>
+                        </label>
+
+                        <label class="cabin-option">
+                          <input
+                            type="radio"
+                            name="cabin-class-1"
+                            value="business"
+                          />
+                          <span class="cabin-button">Business</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="passenger-type" data-type="children">
-                    <span>Children (2-11 years)</span>
-                    <div class="passenger-counter">
-                      <button class="counter-btn decrease">-</button>
-                      <div class="counter-value">0</div>
-                      <button class="counter-btn increase">+</button>
-                    </div>
-                  </div>
-
-                  <div class="passenger-type" data-type="infants">
-                    <span>Infants (0-23 months)</span>
-                    <div class="passenger-counter">
-                      <button class="counter-btn decrease">-</button>
-                      <div class="counter-value">0</div>
-                      <button class="counter-btn increase">+</button>
-                    </div>
-                  </div>
-
-                  <div class="cabin-class">
-                    <label>Cabin Class</label>
-                    <div class="radio-group">
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-2"
-                          value="economy"
-                          checked
-                        />
-                        <span>Economy</span>
-                      </label>
-
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-2"
-                          value="premium"
-                        />
-                        <span>Premium</span>
-                      </label>
-
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-2"
-                          value="business"
-                        />
-                        <span>Business</span>
-                      </label>
-
-                      <label class="radio-option">
-                        <input
-                          type="radio"
-                          name="cabin-class-2"
-                          value="first"
-                        />
-                        <span>First</span>
-                      </label>
-                    </div>
+                  <div class="dropdown-footer">
+                    <button class="done-btn">Done</button>
                   </div>
                 </div>
               </div>
