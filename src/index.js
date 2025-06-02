@@ -438,6 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupOffersCarousel();
   setupContentAnimation();
   collapseFooter();
+  showSupport();
 
   // Initialize passenger text
   document.querySelectorAll(".dropdown").forEach((dropdown) => {
@@ -545,5 +546,14 @@ function collapseFooter() {
     fooList.forEach((ele) => ele.classList.toggle("footer-toggle"));
     iata.classList.toggle("footer-toggle");
     collapseBtn.classList.toggle("rotated");
+  });
+}
+
+function showSupport() {
+  const supportBtn = document.querySelector(".support");
+  const supportDropdown = document.querySelector(".support-dropdown");
+
+  supportBtn.addEventListener("click", (e) => {
+    supportDropdown.classList.toggle("active");
   });
 }
