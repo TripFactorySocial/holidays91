@@ -55,10 +55,14 @@
         <div class="search-widget">
           <div class="search-tabs">
             <div class="tab active" data-tab="one-way">
-              <i class="fas fa-plane"></i> One-way
+              <!-- <i class="fas fa-plane"></i> One-way -->
+              <img src="./public/one-way.png" alt="one-way" height="10" />
+              One-way
             </div>
             <div class="tab" data-tab="round-trip">
-              <i class="fas fa-exchange-alt"></i> Round-trip
+              <!-- <i class="fas fa-exchange-alt"></i> Round-trip -->
+              <img src="./public/round-trip.png" alt="round-trip" height="20" />
+              Round-trip
             </div>
           </div>
 
@@ -305,24 +309,31 @@
 
               <div class="search-field">
                 <label for="departure-date-2">Departure</label>
-                <input
-                  type="text"
-                  id="departure-date-2"
-                  class="search-input date-picker"
-                  placeholder="Select Date"
-                  readonly
-                />
+                <div class="date-input-wrapper">
+                  <input
+                    type="text"
+                    id="departure-date-2"
+                    class="search-input date-picker"
+                    placeholder="Select Date"
+                    readonly
+                  />
+                  <i class="fas fa-calendar-alt date-icon"></i>
+                </div>
               </div>
 
               <div class="search-field">
                 <label for="return-date-2">Return</label>
-                <input
-                  type="text"
-                  id="return-date-2"
-                  class="search-input date-picker"
-                  placeholder="Select Date"
-                  readonly
-                />
+                <div class="date-input-wrapper">
+                  <input
+                    type="text"
+                    id="return-date-2"
+                    class="search-input date-picker return-clickable disabled"
+                    placeholder="Select Date"
+                    readonly
+                    disabled
+                  />
+                  <i class="fas fa-calendar-alt date-icon"></i>
+                </div>
               </div>
 
               <div class="search-field dropdown">

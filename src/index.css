@@ -200,6 +200,11 @@ header {
   color: var(--text-color);
   transition: all 0.3s ease;
   position: relative;
+
+  display: flex;
+  align-items: center;
+
+  gap: 0.8rem;
 }
 
 .tab:hover {
@@ -1556,7 +1561,8 @@ header {
   position: absolute;
   /* top: 0; */
   left: 50%;
-  transform: translateY(55%);
+  /* transform: translateY(55%); */
+  transform: translateY(60%);
   z-index: 100;
 
   border: none;
