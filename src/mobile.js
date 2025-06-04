@@ -1,62 +1,3 @@
-// Global overlay management
-class OverlayManager {
-  constructor() {
-    this.activeOverlays = new Set();
-    this.backdrop = null;
-    this.init();
-  }
-
-  init() {
-    // Create universal backdrop
-    this.backdrop = document.createElement("div");
-    this.backdrop.className = "overlay-backdrop";
-    document.body.appendChild(this.backdrop);
-
-    // Handle backdrop clicks
-    this.backdrop.addEventListener("click", () => {
-      this.closeAll();
-    });
-  }
-
-  show(identifier) {
-    this.activeOverlays.add(identifier);
-    this.backdrop.classList.add("active");
-    document.body.classList.add("popup-active");
-  }
-
-  hide(identifier) {
-    this.activeOverlays.delete(identifier);
-    if (this.activeOverlays.size === 0) {
-      this.backdrop.classList.remove("active");
-      document.body.classList.remove("popup-active");
-    }
-  }
-
-  closeAll() {
-    // Close all active popups
-    if (this.activeOverlays.has("menu")) {
-      closeMobileMenu();
-    }
-    if (this.activeOverlays.has("calendar")) {
-      const calendarInstance = window.calendarInstance;
-      if (calendarInstance) {
-        calendarInstance.hide();
-      }
-    }
-    if (this.activeOverlays.has("dropdown")) {
-      document.querySelectorAll(".dropdown.active").forEach((dropdown) => {
-        dropdown.classList.remove("active");
-      });
-    }
-    this.activeOverlays.clear();
-    this.backdrop.classList.remove("active");
-    document.body.classList.remove("popup-active");
-  }
-}
-
-// Initialize overlay manager
-let overlayManager;
-
 // Mobile menu functionality
 function initializeMobileMenu() {
   // Create hamburger button
@@ -68,15 +9,21 @@ function initializeMobileMenu() {
     <span></span>
   `;
 
+  // Create mobile overlay
+  const overlay = document.createElement("div");
+  overlay.className = "mobile-overlay";
+
   // Add hamburger to header (only on mobile)
   if (window.innerWidth <= 768) {
     const header = document.querySelector("header");
     header.appendChild(hamburger);
+    document.body.appendChild(overlay);
   }
 
   // Toggle mobile menu
   hamburger.addEventListener("click", (e) => {
     e.stopPropagation();
+    const authButtons = document.querySelector(".auth-buttons");
     const isActive = hamburger.classList.contains("active");
 
     if (isActive) {
@@ -86,17 +33,23 @@ function initializeMobileMenu() {
     }
   });
 
+  // Close menu when clicking overlay
+  overlay.addEventListener("click", closeMobileMenu);
+
   // Handle window resize
   window.addEventListener("resize", () => {
     if (window.innerWidth > 768) {
       closeMobileMenu();
       const existingHamburger = document.querySelector(".hamburger");
+      const existingOverlay = document.querySelector(".mobile-overlay");
       if (existingHamburger) existingHamburger.remove();
+      if (existingOverlay) existingOverlay.remove();
     } else {
       const existingHamburger = document.querySelector(".hamburger");
       if (!existingHamburger) {
         const header = document.querySelector("header");
         header.appendChild(hamburger);
+        document.body.appendChild(overlay);
       }
     }
   });
@@ -105,19 +58,23 @@ function initializeMobileMenu() {
 function openMobileMenu() {
   const hamburger = document.querySelector(".hamburger");
   const authButtons = document.querySelector(".auth-buttons");
+  const overlay = document.querySelector(".mobile-overlay");
 
   hamburger.classList.add("active");
   authButtons.classList.add("active");
-  overlayManager.show("menu");
+  overlay.classList.add("active");
+  document.body.style.overflow = "hidden";
 }
 
 function closeMobileMenu() {
   const hamburger = document.querySelector(".hamburger");
   const authButtons = document.querySelector(".auth-buttons");
+  const overlay = document.querySelector(".mobile-overlay");
 
   if (hamburger) hamburger.classList.remove("active");
   if (authButtons) authButtons.classList.remove("active");
-  overlayManager.hide("menu");
+  if (overlay) overlay.classList.remove("active");
+  document.body.style.overflow = "";
 }
 
 // Modified support dropdown for mobile
@@ -129,88 +86,56 @@ function setupMobileSupport() {
     supportBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      const isActive = supportDropdown.classList.contains("active");
-
-      if (isActive) {
-        supportDropdown.classList.remove("active");
-      } else {
-        supportDropdown.classList.add("active");
-        // Don't use overlay for support dropdown as it's inside the menu
-      }
+      supportDropdown.classList.toggle("active");
     });
   }
 }
 
-// Enhanced mobile calendar with blur
+// Improved mobile calendar positioning
 function setupMobileCalendar() {
+  const calendar = document.querySelector(".calendar-widget");
+
   if (window.innerWidth <= 768) {
-    // Override calendar show/hide methods
+    // Add backdrop for mobile calendar
+    const calendarBackdrop = document.createElement("div");
+    calendarBackdrop.className = "calendar-backdrop";
+    calendarBackdrop.style.cssText = `
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+    `;
+    document.body.appendChild(calendarBackdrop);
+
+    // Show/hide calendar backdrop
     const originalShow = Calendar.prototype.show;
     Calendar.prototype.show = function (input) {
       originalShow.call(this, input);
       if (window.innerWidth <= 768) {
-        overlayManager.show("calendar");
+        calendarBackdrop.style.display = "block";
+        document.body.style.overflow = "hidden";
       }
     };
 
     const originalHide = Calendar.prototype.hide;
     Calendar.prototype.hide = function () {
       originalHide.call(this);
-      overlayManager.hide("calendar");
+      calendarBackdrop.style.display = "none";
+      document.body.style.overflow = "";
     };
-  }
-}
 
-// Enhanced dropdown handling with blur
-function setupMobileDropdowns() {
-  // FIXME
-  const dropdowns = document.querySelectorAll(".dropdown-content");
-
-  dropdowns.forEach((dropdown) => {
-    const input = dropdown.querySelector(".search-input");
-
-    // Override click handler for mobile
-    if (window.innerWidth <= 768) {
-      input.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const isActive = dropdown.classList.contains("active");
-
-        // Close other dropdowns
-        dropdowns.forEach((d) => {
-          if (d !== dropdown) d.classList.remove("active");
-        });
-
-        if (isActive) {
-          dropdown.classList.remove("active");
-          overlayManager.hide("dropdown");
-        } else {
-          dropdown.classList.add("active");
-          overlayManager.show("dropdown");
-        }
-      });
-
-      // Handle done button
-      const doneBtn = dropdown.querySelector(".done-btn");
-      if (doneBtn) {
-        doneBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          dropdown.classList.remove("active");
-          overlayManager.hide("dropdown");
-        });
+    // Close calendar when clicking backdrop
+    calendarBackdrop.addEventListener("click", () => {
+      const calendarInstance = window.calendarInstance;
+      if (calendarInstance) {
+        calendarInstance.hide();
       }
-    }
-  });
-
-  // Close dropdowns when clicking outside
-  document.addEventListener("click", (e) => {
-    if (
-      !e.target.closest(".dropdown") &&
-      !e.target.closest(".overlay-backdrop")
-    ) {
-      dropdowns.forEach((d) => d.classList.remove("active"));
-      overlayManager.hide("dropdown");
-    }
-  });
+    });
+  }
 }
 
 // Touch-friendly carousel
@@ -220,7 +145,7 @@ function setupMobileTouchCarousel() {
   let scrollLeft = 0;
   let isDown = false;
 
-  if (window.innerWidth <= 768 && carousel) {
+  if (window.innerWidth <= 768) {
     carousel.addEventListener("touchstart", (e) => {
       isDown = true;
       startX = e.touches[0].pageX - carousel.offsetLeft;
@@ -262,28 +187,13 @@ function setupMobileSmoothScroll() {
   }
 }
 
-// Handle escape key to close popups
-function setupEscapeKey() {
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && window.innerWidth <= 768) {
-      overlayManager.closeAll();
-    }
-  });
-}
-
 // Initialize all mobile features
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize overlay manager first
-  overlayManager = new OverlayManager();
-
-  // Initialize other features
   initializeMobileMenu();
   setupMobileSupport();
   setupMobileCalendar();
-  setupMobileDropdowns();
   setupMobileTouchCarousel();
   setupMobileSmoothScroll();
-  setupEscapeKey();
 
   // Store calendar instance globally for mobile backdrop handling
   window.calendarInstance = new Calendar();
@@ -307,40 +217,7 @@ window.addEventListener(
   "resize",
   debounce(() => {
     if (window.innerWidth > 768) {
-      overlayManager.closeAll();
+      closeMobileMenu();
     }
   }, 250)
 );
-
-// Prevent scroll when popup is active
-document.addEventListener(
-  "touchmove",
-  (e) => {
-    if (document.body.classList.contains("popup-active")) {
-      const isScrollable = e.target.closest(
-        ".auth-buttons, .dropdown-content, .calendar-widget"
-      );
-      if (!isScrollable) {
-        e.preventDefault();
-      }
-    }
-  },
-  { passive: false }
-);
-
-// document.querySelectorAll(".search-field.dropdown input").forEach((input) => {
-//   input.addEventListener("click", () => {
-//     const dropdown = input.closest(".dropdown");
-//     document.querySelectorAll(".dropdown").forEach((d) => {
-//       if (d !== dropdown) d.classList.remove("active");
-//     });
-//     dropdown.classList.toggle("active");
-//     document.body.classList.toggle(
-//       "popup-active",
-//       dropdown.classList.contains("active")
-//     );
-//   });
-// });
-
-// const passengersInput = document.querySelector(".search-field.dropdown");
-// const passengerDropdown = document.querySelector(".dropdown-content");
