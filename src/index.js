@@ -396,9 +396,9 @@ function setupPassengerCounters() {
 function updatePassengerText(dropdown) {
   const input = dropdown.querySelector(".search-input");
   const counters = dropdown.querySelectorAll(".passenger-type");
-  const selectedClass = dropdown.querySelector(
+  const selectedClass = dropdown?.querySelector(
     'input[type="radio"]:checked'
-  ).value;
+  )?.value;
 
   let passengers = [];
   counters.forEach((counter) => {
@@ -417,8 +417,9 @@ function updatePassengerText(dropdown) {
   });
 
   const passengerText = passengers.join(", ") || "1 Adult";
-  const classText =
-    selectedClass.charAt(0).toUpperCase() + selectedClass.slice(1);
+  const classText = selectedClass
+    ? selectedClass?.charAt(0)?.toUpperCase() + selectedClass?.slice(1)
+    : "Select a Class";
   input.value = `${passengerText}, ${classText}`;
 }
 
